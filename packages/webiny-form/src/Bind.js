@@ -1,6 +1,6 @@
 // @flow
 import * as React from "react";
-import { get, isFunction } from "lodash";
+import { get } from "lodash";
 import type Form from "./Form";
 import validation from "./validation";
 import invariant from "invariant";
@@ -17,7 +17,7 @@ export type Props = {
 };
 
 const createBind = (form: Form) => {
-    const Bind = (props: Props) => {
+    return (props: Props) => {
         const {
             name,
             validators = [],
@@ -73,8 +73,6 @@ const createBind = (form: Form) => {
         }
         return children(newProps);
     };
-
-    return Bind;
 };
 
 export { createBind };

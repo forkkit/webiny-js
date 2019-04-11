@@ -63,7 +63,7 @@ type State = {
 
 type Props = {
     // Left side icon.
-    icon: React.Element<any>,
+    icon?: React.Element<any>,
 
     // Accordion title.
     title?: React.Node,
@@ -79,6 +79,7 @@ class AccordionItem extends React.Component<Props, State> {
     state = { closed: true };
 
     render() {
+        const { icon, title, description, children } = this.props;
         return (
             <React.Fragment>
                 <ListItem
@@ -87,14 +88,16 @@ class AccordionItem extends React.Component<Props, State> {
                         this.setState({ closed: !this.state.closed });
                     }}
                 >
-                    <ListItemGraphic>
-                        <Icon icon={this.props.icon} />
-                    </ListItemGraphic>
+                    {icon && (
+                        <ListItemGraphic>
+                            <Icon icon={icon} />
+                        </ListItemGraphic>
+                    )}
                     <TitleContent>
-                        <ListItemTitle>{this.props.title}</ListItemTitle>
-                        {this.props.description && (
+                        <ListItemTitle>{title}</ListItemTitle>
+                        {description && (
                             <ListItemDescription>
-                                <Typography use={"subtitle2"}>{this.props.description}</Typography>
+                                <Typography use={"subtitle2"}>{description}</Typography>
                             </ListItemDescription>
                         )}
                     </TitleContent>
@@ -105,7 +108,7 @@ class AccordionItem extends React.Component<Props, State> {
                 <Transition in={!this.state.closed} timeout={duration} unmountOnExit>
                     {state => (
                         <Content style={{ ...defaultStyle, ...transitionStyles[state] }}>
-                            {this.props.children}
+                            {children}
                         </Content>
                     )}
                 </Transition>

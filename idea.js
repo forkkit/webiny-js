@@ -4,6 +4,7 @@ System.config({
         "webiny-app/*": "./packages/webiny-app/src/*",
         "webiny-admin/*": "./packages/webiny-admin/src/*",
         "webiny-app-cms/*": "./packages/webiny-app-cms/src/*",
+        "webiny-app-forms/*": "./packages/webiny-app-forms/src/*",
         "webiny-app-security/*": "./packages/webiny-app-security/src/*",
         "webiny-api-security/*": "./packages/webiny-api-security/src/*",
         "webiny-api/*": "./packages/webiny-api/src/*",
