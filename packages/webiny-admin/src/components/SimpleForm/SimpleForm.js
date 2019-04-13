@@ -19,7 +19,8 @@ const header = css({
 
 const title = css({
     display: "flex",
-    alignItems: "center"
+    alignItems: "left",
+    flexDirection: "column"
 });
 
 const actions = css({
@@ -52,6 +53,7 @@ const SimpleForm = (props: { children: React.Node, noElevation?: boolean }) => {
 
 const SimpleFormHeader = (props: {
     title: string,
+    description?: string | React.Element<any>,
     icon?: React.Element<any>,
     children?: React.Node
 }) => {
@@ -61,6 +63,9 @@ const SimpleFormHeader = (props: {
                 <React.Fragment>
                     {props.icon && <Icon className={icon} icon={props.icon} />}
                     <Typography use="headline5">{props.title}</Typography>
+                    {props.description && (
+                        <Typography use="caption">{props.description}</Typography>
+                    )}
                 </React.Fragment>
             </Cell>
             <Cell span={6} className={actions}>
