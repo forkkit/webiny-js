@@ -21,6 +21,7 @@ const Info = styled("div")({
 const Actions = styled("div")({
     display: "flex",
     flexDirection: "row",
+    alignItems: "right",
     "> *": {
         flex: "1 100%"
     }

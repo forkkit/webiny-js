@@ -12,14 +12,13 @@ import {
 
 import { Form } from "webiny-form";
 import { getPlugins } from "webiny-plugins";
-
-import { Input } from "webiny-ui/Input";
-import { Grid, Cell } from "webiny-ui/Grid";
 import { Tabs, Tab } from "webiny-ui/Tabs";
 import { Elevation } from "webiny-ui/Elevation";
 import { Typography } from "webiny-ui/Typography";
 import { Icon } from "webiny-ui/Icon";
 import useEditFieldDialog from "./useEditFieldDialog";
+import GeneralTab from "./GeneralTab";
+import ValidatorsTab from "./ValidatorsTab";
 
 const dialogBody = css({
     "&.mdc-dialog__body": {
@@ -78,7 +77,8 @@ const EditFieldDialog = ({ open, field, onClose, onSave }) => {
                         onClose();
                     }}
                 >
-                    {({ Bind, submit, setValue }) => {
+                    {(formProps) => {
+                        const { setValue, submit, Bind } = formProps;
                         const slugify = createSlugify(setValue);
 
                         return (
@@ -86,65 +86,28 @@ const EditFieldDialog = ({ open, field, onClose, onSave }) => {
                                 <DialogBody className={dialogBody}>
                                     <Tabs>
                                         <Tab label={"General"}>
-                                            {typeof fieldType.renderSettings === "function" ? (
-                                                fieldType.renderSettings({ Bind, slugify, uniqueId })
-                                            ) : (
-                                                <Grid>
-                                                    <Cell span={6}>
-                                                        <Bind
-                                                            name={"label"}
-                                                            validators={["required"]}
-                                                            afterChange={slugify("id")}
-                                                        >
-                                                            <Input label={"Label"} />
-                                                        </Bind>
-                                                    </Cell>
-                                                    <Cell span={6}>
-                                                        <Bind
-                                                            name={"id"}
-                                                            validators={["required", uniqueId]}
-                                                        >
-                                                            <Input label={"Field ID"} />
-                                                        </Bind>
-                                                    </Cell>
-                                                    <Cell span={12}>
-                                                        <Bind name={"helpText"}>
-                                                            <Input
-                                                                label={"Help text"}
-                                                                description={"Help text (optional)"}
-                                                            />
-                                                        </Bind>
-                                                    </Cell>
-                                                    <Cell span={12}>
-                                                        <Bind name={"placeholderText"}>
-                                                            <Input
-                                                                label={"Placeholder text"}
-                                                                description={
-                                                                    "Placeholder text (optional)"
-                                                                }
-                                                            />
-                                                        </Bind>
-                                                    </Cell>
-                                                    <Cell span={12}>
-                                                        <Bind name={"defaultValue"}>
-                                                            <Input
-                                                                label={"Default value"}
-                                                                description={"Default value (optional)"}
-                                                            />
-                                                        </Bind>
-                                                    </Cell>
-                                                </Grid>
-                                            )}
+                                            <GeneralTab
+                                                fieldType={fieldType}
+                                                Bind={Bind}
+                                                slugify={slugify}
+                                                uniqueId={uniqueId}
+                                            />
                                         </Tab>
-                                        <Tab label={"Validators"} />
+                                        <Tab label={"Validators"}>
+                                            <Bind name={"validation"}>
+                                                <ValidatorsTab formProps={formProps} field={editField} />
+                                            </Bind>
+                                        </Tab>
                                     </Tabs>
                                 </DialogBody>
                                 <DialogFooter>
-                                    <DialogFooterButton onClick={onClose}>Cancel</DialogFooterButton>
+                                    <DialogFooterButton onClick={onClose}>
+                                        Cancel
+                                    </DialogFooterButton>
                                     <DialogFooterButton onClick={submit}>Save</DialogFooterButton>
                                 </DialogFooter>
                             </Fragment>
-                        )
+                        );
                     }}
                 </Form>
             )}

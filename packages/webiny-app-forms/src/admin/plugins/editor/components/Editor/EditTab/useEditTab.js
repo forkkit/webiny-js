@@ -109,7 +109,7 @@ export default function useEditTab() {
                     }
                 }
 
-                return insertField(fieldData, createAt.current, {...state, fields });
+                return insertField(fieldData, createAt.current, { ...state, fields });
             });
 
             return;
@@ -117,7 +117,8 @@ export default function useEditTab() {
 
         // Find field plugin which handles the dropped field type "id".
         const plugin = getPlugins("cms-form-field-type").find(pl => pl.fieldType.id === type);
-        setFormState(insertField(plugin.fieldType.createField(), createAt.current));
+        const data = plugin.fieldType.createField();
+        setFormState(insertField(data, createAt.current));
     }
 
     return {
