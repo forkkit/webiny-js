@@ -91,6 +91,7 @@ export class Tags extends React.Component<Props, State> {
 
                 switch (keycode(e)) {
                     case "enter":
+                        e.stopPropagation();
                         if (inputValue) {
                             newValue.push(inputValue);
                             onChange(newValue);
