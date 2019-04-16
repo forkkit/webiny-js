@@ -6,7 +6,7 @@ import { SecureRoute } from "webiny-app-security/components";
 import { CircularProgress } from "webiny-ui/Progress";
 
 const FormEditor = Loadable({
-    loader: () => import("./editor"),
+    loader: () => import("../views/Editor"),
     loading: CircularProgress
 });
 

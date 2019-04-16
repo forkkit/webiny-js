@@ -6,7 +6,12 @@ const INIT_STATE = {
     title: "Untitled",
     version: 1,
     locked: false,
-    fields: []
+    fields: [],
+    triggers: {
+        redirect: "",
+        message: null,
+        webhook: ""
+    }
 };
 
 const useEditorState = (initialState = INIT_STATE) => {
@@ -56,16 +61,12 @@ const useEditorState = (initialState = INIT_STATE) => {
     };
 };
 
-const EditorContext = React.createContext();
+const FormEditorContext = React.createContext();
 
-const EditorProvider = ({ value, children }) => {
+const FormEditorProvider = ({ value, children }) => {
     const editorState = useEditorState(value);
 
-    return <EditorContext.Provider value={editorState}>{children}</EditorContext.Provider>;
+    return <FormEditorContext.Provider value={editorState}>{children}</FormEditorContext.Provider>;
 };
 
-const EditorConsumer = ({ children }) => {
-    return <EditorContext.Consumer>{value => children(value)}</EditorContext.Consumer>;
-};
-
-export { EditorContext, EditorProvider, EditorConsumer };
+export { FormEditorContext, FormEditorProvider };

@@ -2,11 +2,11 @@ import { useContext, useState, useRef } from "react";
 import shortid from "shortid";
 import { set } from "dot-prop-immutable";
 import { getPlugins } from "webiny-plugins";
-import { EditorContext } from "webiny-app-forms/admin/plugins/editor/context";
+import { FormEditorContext } from "webiny-app-forms/admin/components/FormEditor";
 
 export default function useEditTab() {
     const [fieldDialogOpened, showFieldDialog] = useState(false);
-    const { formState, setFormState, findFieldPosition } = useContext(EditorContext);
+    const { formState, setFormState, findFieldPosition } = useContext(FormEditorContext);
     const createAt = useRef(null);
 
     function closeFieldDialog() {

@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Input } from "webiny-ui/Input";
 import { Tooltip } from "webiny-ui/Tooltip";
 import { Typography } from "webiny-ui/Typography";
-import { EditorContext } from "webiny-app-forms/admin/plugins/editor/context";
+import { FormEditorContext } from "webiny-app-forms/admin/components/FormEditor";
 
 import {
     FormMeta,
@@ -14,7 +14,7 @@ import {
 } from "./TitleStyled";
 
 export const Title = () => {
-    const { formState, setFormState } = useContext(EditorContext);
+    const { formState, setFormState } = useContext(FormEditorContext);
     const [editTitle, setEdit] = useState(false);
     let [title, setTitle] = useState(null);
 

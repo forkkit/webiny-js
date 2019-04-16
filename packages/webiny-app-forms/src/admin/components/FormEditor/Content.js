@@ -4,6 +4,7 @@ import styled from "react-emotion";
 import { SplitView, LeftPanel, RightPanel } from "webiny-admin/components/SplitView";
 import { Tabs, Tab } from "webiny-ui/Tabs";
 import { EditTab } from "./EditTab";
+import { TriggersTab } from "./TriggersTab";
 import { Fields } from "./Fields";
 
 const ContentContainer = styled("div")({
@@ -24,6 +25,9 @@ export default function Content() {
                     <Tabs>
                         <Tab label={"Edit"}>
                             <EditTab/>
+                        </Tab>
+                        <Tab label={"Triggers"}>
+                            <TriggersTab/>
                         </Tab>
                     </Tabs>
                 </RightPanel>

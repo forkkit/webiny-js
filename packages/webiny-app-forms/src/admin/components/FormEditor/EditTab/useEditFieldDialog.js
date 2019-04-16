@@ -1,12 +1,12 @@
 import { useState, useEffect, useContext } from "react";
 import slugify from "slugify";
-import { EditorContext } from "webiny-app-forms/admin/plugins/editor/context";
+import { FormEditorContext } from "webiny-app-forms/admin/components/FormEditor";
 import { memoize, flatten } from "lodash";
 import { getPlugins } from "webiny-plugins";
 
 export default function useEditFieldDialog({ field, open }) {
     const [editField, setField] = useState(field);
-    const { formState } = useContext(EditorContext);
+    const { formState } = useContext(FormEditorContext);
 
     useEffect(() => {
         // Each time `open` prop changes, update internal field state.

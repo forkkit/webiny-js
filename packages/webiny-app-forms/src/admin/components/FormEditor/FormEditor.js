@@ -4,11 +4,11 @@ import HTML5Backend from "react-dnd-html5-backend";
 import { DragDropContext } from "react-dnd";
 
 // Components
-import EditorBar from "./Editor/Bar";
-import EditorContent from "./Editor/Content";
-import DragPreview from "./Editor/DragPreview";
+import EditorBar from "./Bar";
+import EditorContent from "./Content";
+import DragPreview from "./DragPreview";
 
-const Editor = () => {
+const FormEditor = () => {
     const classes = {
         "form-editor": true
     };
@@ -21,4 +21,5 @@ const Editor = () => {
     );
 };
 
-export default DragDropContext(HTML5Backend)(Editor);
+export default DragDropContext(HTML5Backend)(FormEditor);
+

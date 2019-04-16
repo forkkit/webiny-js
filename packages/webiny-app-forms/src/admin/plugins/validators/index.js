@@ -134,7 +134,7 @@ export default [
                             <Bind name={"value"} validators={["required", "numeric"]}>
                                 <Input
                                     label={"Value"}
-                                    description={"This is the biggest value that will be allowed"}
+                                    description={"This is the greatest value that will be allowed"}
                                 />
                             </Bind>
                         </Cell>

@@ -1,15 +1,14 @@
 // @flow
 import React from "react";
 import Snackbar from "webiny-admin/plugins/Snackbar/Snackbar";
-import Editor from "./components/Editor";
-import { EditorProvider } from "./context";
+import { FormEditorProvider, FormEditor } from "webiny-app-forms/admin/components/FormEditor";
 
 export default function EditorView() {
     return (
         <React.Fragment>
-            <EditorProvider>
-                <Editor />
-            </EditorProvider>
+            <FormEditorProvider>
+                <FormEditor />
+            </FormEditorProvider>
             <div style={{ zIndex: 10, position: "absolute" }}>
                 <Snackbar />
             </div>
