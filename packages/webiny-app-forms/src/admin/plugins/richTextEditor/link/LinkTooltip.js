@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useRef, useEffect } from "react";
 import styled from "react-emotion";
 import { getLinkRange, TYPE } from "./utils";
 
@@ -38,7 +38,39 @@ const getSelectionRect = () => {
 
 const LinkTooltip = ({ editor, onChange, activatePlugin }) => {
     const menuRef = useRef(null);
+    const menu = menuRef.current;
     const link = editor.value.inlines.find(inline => inline.type === "link");
+    const { selection } = editor.value;
+
+    useEffect(() => {
+        if (!link && selection.isFocused) {
+            menu.style.display = "none";
+            return;
+        }
+
+        if (!selection.isFocused) {
+            // Don't reposition the tooltip;
+            // When we attempt to click the button, editor focus is lost.
+            return;
+        }
+
+        // Calculate position
+        if (menu) {
+            const editorRect = menu.parentNode.getBoundingClientRect();
+            const menuRect = menu.getBoundingClientRect();
+            let { top, left, height } = getSelectionRect();
+
+            const menuRight = left + menuRect.width;
+            const diff = editorRect.right - menuRight;
+
+            // Position menu
+            const position = { top: top + height, left: diff < 0 ? left + diff : left };
+
+            menu.style.display = "flex";
+            menu.style.top = position.top + "px";
+            menu.style.left = position.left + "px";
+        }
+    });
 
     const activateLink = useCallback(() => activatePlugin("cms-form-rich-editor-menu-item-link"));
     const removeLink = useCallback(() => {
@@ -46,32 +78,14 @@ const LinkTooltip = ({ editor, onChange, activatePlugin }) => {
             // Restore selection
             change.select(getLinkRange(change, change.value.selection)).unwrapInline(TYPE);
             onChange(change);
+            menu.style.display = "none";
         });
     });
 
     const href = link ? link.data.get("href") : "";
 
-    // Calculate position
-    const menu = menuRef.current;
-    let position = { top: 0, left: 0 };
-    if (menu) {
-        const editorRect = menu.parentNode.getBoundingClientRect();
-        const menuRect = menu.getBoundingClientRect();
-        let { top, left, height } = getSelectionRect();
-
-        const menuRight = left + menuRect.width;
-        const diff = editorRect.right - menuRight;
-
-        // Position menu
-        position = { top: top + height, left: diff < 0 ? left + diff : left };
-    }
-
-    if (!link) {
-        position.top = -1000;
-    }
-
     return (
-        <Tooltip innerRef={menuRef} style={position}>
+        <Tooltip innerRef={menuRef} style={{ display: "none" }}>
             <span>
                 <a href={href} target={"_blank"}>
                     {href.length > 50 ? compressLink(href) : href}
