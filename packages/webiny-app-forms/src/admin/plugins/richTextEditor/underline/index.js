@@ -20,7 +20,7 @@ export default () => {
     return {
         menu: [
             {
-                name: "underline-menu-item",
+                name: "cms-form-rich-editor-menu-item-underline",
                 type: "cms-form-rich-editor-menu-item",
                 render({
                     MenuButton,

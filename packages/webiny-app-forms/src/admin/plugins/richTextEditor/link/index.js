@@ -1,12 +1,13 @@
 import React from "react";
 import { ReactComponent as LinkIcon } from "webiny-app-cms/editor/assets/icons/link.svg";
 import LinkDialog from "./LinkDialog";
+import LinkTooltip from "./LinkTooltip";
 
 export default () => {
     return {
         menu: [
             {
-                name: "link-menu-item",
+                name: "cms-form-rich-editor-menu-item-link",
                 type: "cms-form-rich-editor-menu-item",
                 render(props: Object) {
                     const { MenuButton } = props;
@@ -42,6 +43,20 @@ export default () => {
                         }
 
                         return next();
+                    },
+                    renderEditor({ editor, onChange, activatePlugin }, next) {
+                        const children = next();
+
+                        return (
+                            <div>
+                                {children}
+                                <LinkTooltip
+                                    editor={editor}
+                                    onChange={onChange}
+                                    activatePlugin={activatePlugin}
+                                />
+                            </div>
+                        );
                     }
                 }
             }

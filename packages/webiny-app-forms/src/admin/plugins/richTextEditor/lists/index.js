@@ -40,7 +40,7 @@ export default () => {
     return {
         menu: [
             {
-                name: "ordered-list-menu-item",
+                name: "cms-form-rich-editor-menu-item-ordered-list",
                 type: "cms-form-rich-editor-menu-item",
                 render({
                     MenuButton,
@@ -65,7 +65,7 @@ export default () => {
                 }
             },
             {
-                name: "unordered-list-menu-item",
+                name: "cms-form-rich-editor-menu-item-unordered-list",
                 type: "cms-form-rich-editor-menu-item",
                 render({
                     MenuButton,

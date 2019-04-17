@@ -57,6 +57,32 @@ class RichTextEditor extends React.Component {
         }));
     };
 
+    activatePlugin = (plugin: string) => {
+        const { value } = this.state;
+        
+        console.log(value.anchorText.getText());
+
+        this.setState({
+            activePlugin: {
+                plugin,
+                value: {
+                    selection: value.selection.toJSON(),
+                    anchorText: value.anchorText.getText(),
+                    focusText: value.focusText.getText(),
+                    inlines: value.inlines.toJSON(),
+                    marks: value.marks.toJSON(),
+                    activeMarks: value.activeMarks.toJSON(),
+                    blocks: value.blocks.toJSON(),
+                    texts: value.texts.toJSON()
+                }
+            }
+        });
+    };
+
+    deactivatePlugin = () => {
+        this.setState({ activePlugin: null });
+    };
+
     render() {
         return (
             <React.Fragment>
@@ -65,6 +91,9 @@ class RichTextEditor extends React.Component {
                     value={this.state.value}
                     onChange={this.onChange}
                     editor={this.editor.current}
+                    activatePlugin={this.activatePlugin}
+                    activePlugin={this.state.activePlugin}
+                    deactivatePlugin={this.deactivatePlugin}
                 />
                 <Editor
                     ref={this.editor}
@@ -75,6 +104,9 @@ class RichTextEditor extends React.Component {
                     value={this.state.value}
                     onChange={this.onChange}
                     theme={this.props.cms.theme}
+                    activatePlugin={this.activatePlugin}
+                    activePlugin={this.state.activePlugin}
+                    deactivatePlugin={this.deactivatePlugin}
                 />
             </React.Fragment>
         );

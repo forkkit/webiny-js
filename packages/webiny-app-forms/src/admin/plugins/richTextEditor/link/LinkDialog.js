@@ -13,10 +13,11 @@ import {
     DialogFooter,
     DialogFooterButton
 } from "webiny-ui/Dialog";
+import { getLinkRange, isLink, TYPE } from "./utils";
 
-const LinkDialog = ({ linkData, updateLink, closeDialog }) => {
+const LinkDialog = ({ open, linkData, updateLink, closeDialog }) => {
     return (
-        <Dialog open={true} onClose={closeDialog}>
+        <Dialog open={open} onClose={closeDialog}>
             <Form data={linkData} onSubmit={updateLink}>
                 {({ Bind, submit }) => (
                     <Fragment>
@@ -64,51 +65,36 @@ const LinkDialog = ({ linkData, updateLink, closeDialog }) => {
     );
 };
 
-const TYPE = "link";
-const isLink = i => i.type === TYPE;
-const createLinkRange = (change, selection) => {
-    change.select(selection);
-    let link = change.value.inlines.find(isLink);
-    if (!link) {
-        return selection;
-    }
-    // Create full link range
-    const firstText = link.getFirstText();
-    const lastText = link.getLastText();
-    return {
-        anchor: {
-            path: change.value.document.getPath(firstText.key),
-            offset: 0
-        },
-        focus: {
-            path: change.value.document.getPath(lastText.key),
-            offset: lastText.text.length
-        }
-    };
-};
-
 export default compose(
     withProps(({ value }) => {
-        let link = value.inlines.some(isLink) && value.inlines.find(isLink);
-        return { linkData: (link && link.data) || { text: value.selectedText } };
+        if (!value) {
+            return { linkData: null };
+        }
+
+        const { selection, inlines, anchorText } = value;
+        let link = inlines.some(isLink) && inlines.find(isLink);
+
+        const selectedText = anchorText.substr(
+            selection.anchor.offset,
+            selection.focus.offset - selection.anchor.offset
+        );
+
+        return { linkData: (link && link.data) || { text: selectedText } };
     }),
     withHandlers({
-        updateLink: ({ editor, onChange, value: { selection } }) => data => {
+        updateLink: ({ editor, onChange, closeDialog, value: { selection } }) => data => {
             editor.change(change => {
+                const linkSelection = getLinkRange(change, selection);
                 change
-                    .select(createLinkRange(change, selection))
+                    .select(linkSelection)
                     .unwrapInline(TYPE)
+                    .insertText(data.text)
+                    .moveAnchorBackward(data.text.length)
                     .wrapInline({ type: TYPE, data })
                     .moveToEnd();
 
                 onChange(change);
-            });
-        },
-        removeLink: ({ editor, onChange, value: { selection } }) => () => {
-            editor.change(change => {
-                // Restore selection
-                change.select(createLinkRange(change, selection)).unwrapInline(TYPE);
-                onChange(change);
+                closeDialog();
             });
         }
     })
