@@ -59,7 +59,6 @@ class Menu extends React.Component {
                     .filter(pl => typeof pl.renderDialog === "function")
                     .map(pl => {
                         const props = {
-                            value: activePlugin ? activePlugin.value : null,
                             onChange,
                             editor,
                             open: activePlugin ? activePlugin.plugin === pl.name : false,

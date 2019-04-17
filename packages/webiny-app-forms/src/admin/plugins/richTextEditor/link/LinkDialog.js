@@ -66,30 +66,37 @@ const LinkDialog = ({ open, linkData, updateLink, closeDialog }) => {
 };
 
 export default compose(
-    withProps(({ value }) => {
-        if (!value) {
+    withProps(({ activePlugin }) => {
+        if (!activePlugin) {
             return { linkData: null };
         }
 
-        const { selection, inlines, anchorText } = value;
-        let link = inlines.some(isLink) && inlines.find(isLink);
+        let { selection, inlines, anchorText } = activePlugin.value;
+        let link = inlines.find(isLink);
 
-        const selectedText = anchorText.substr(
-            selection.anchor.offset,
-            selection.focus.offset - selection.anchor.offset
-        );
+        if (typeof anchorText !== "string") {
+            anchorText = anchorText.getText();
+        }
 
-        return { linkData: (link && link.data) || { text: selectedText } };
+        const selectedText = link
+            ? anchorText
+            : anchorText.substr(
+                  selection.anchor.offset,
+                  selection.focus.offset - selection.anchor.offset
+              );
+
+        return { linkData: { ...(link && link.data), text: selectedText } };
     }),
     withHandlers({
-        updateLink: ({ editor, onChange, closeDialog, value: { selection } }) => data => {
+        updateLink: ({ editor, onChange, closeDialog, activePlugin }) => ({ text, ...data }) => {
             editor.change(change => {
+                const { selection } = activePlugin.value;
                 const linkSelection = getLinkRange(change, selection);
                 change
                     .select(linkSelection)
                     .unwrapInline(TYPE)
-                    .insertText(data.text)
-                    .moveAnchorBackward(data.text.length)
+                    .insertText(text)
+                    .moveAnchorBackward(text.length)
                     .wrapInline({ type: TYPE, data })
                     .moveToEnd();
 

@@ -60,8 +60,6 @@ class RichTextEditor extends React.Component {
     activatePlugin = (plugin: string) => {
         const { value } = this.state;
         
-        console.log(value.anchorText.getText());
-
         this.setState({
             activePlugin: {
                 plugin,
