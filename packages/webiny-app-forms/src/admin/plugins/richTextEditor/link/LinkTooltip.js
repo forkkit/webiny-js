@@ -1,6 +1,8 @@
 import React, { useCallback, useRef, useEffect } from "react";
 import styled from "react-emotion";
+import { css } from "emotion";
 import { getLinkRange, TYPE } from "./utils";
+import { Elevation } from "webiny-ui/Elevation";
 
 const Tooltip = styled("span")({
     display: "flex",
@@ -8,14 +10,20 @@ const Tooltip = styled("span")({
     position: "fixed",
     top: 20,
     left: 0,
-    padding: "2px 5px",
-    backgroundColor: "#fff",
-    border: "1px solid var(--mdc-theme-secondary)",
     zIndex: 1,
     width: "auto",
     maxWidth: 520,
     "> span:not(:first-child)": {
         marginLeft: 10
+    }
+});
+
+const tooltipInner = css({
+    padding: "5px 10px",
+    borderRadius: 2,
+    fontSize: "0.8rem",
+    a: {
+        cursor: "pointer"
     }
 });
 
@@ -86,13 +94,15 @@ const LinkTooltip = ({ editor, onChange, activatePlugin }) => {
 
     return (
         <Tooltip innerRef={menuRef} style={{ display: "none" }}>
-            <span>
-                <a href={href} target={"_blank"}>
-                    {href.length > 50 ? compressLink(href) : href}
-                </a>
-            </span>
-            <button onClick={activateLink}>Change</button>
-            <button onClick={removeLink}>Remove</button>
+            <Elevation className={tooltipInner} z={1}>
+                <span>
+                    Link:{" "}
+                    <a href={href} target={"_blank"}>
+                        {href.length > 50 ? compressLink(href) : href}
+                    </a>
+                </span>{" "}
+                | <a onClick={activateLink}>Change</a> | <a onClick={removeLink}>Remove</a>
+            </Elevation>
         </Tooltip>
     );
 };

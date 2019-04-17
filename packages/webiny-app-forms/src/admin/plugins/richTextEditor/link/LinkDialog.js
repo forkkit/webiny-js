@@ -32,7 +32,7 @@ const LinkDialog = ({ open, linkData, updateLink, closeDialog }) => {
                                     </Bind>
                                 </Cell>
                                 <Cell span={12}>
-                                    <Bind name={"href"} validators={["required"]}>
+                                    <Bind name={"href"} validators={["required", "url"]}>
                                         <Input label="URL" />
                                     </Bind>
                                 </Cell>
