@@ -1,13 +1,13 @@
 // @flow
 import React from "react";
-import type { RenderElementPluginType } from "webiny-app-cms/types";
+import type { RenderElementPluginType } from "webiny-app-site-builder/types";
 import { get } from "lodash";
 
 export default ([
     {
-        name: "cms-render-element-typeform",
-        type: "cms-render-element",
-        element: "cms-element-typeform",
+        name: "sb-render-element-typeform",
+        type: "sb-render-element",
+        element: "typeform",
         render(props) {
             const { source } = props.element.data;
             if (!source || !source.url) {

@@ -13,25 +13,25 @@ const Footer = () => {
     return (
         <Query query={getFooterData}>
             {({ data: response }) => {
-                const { name, logo, social } = get(response, "settings.cms.data") || {};
+                const { name, logo, social } = get(response, "settings.siteBuilder.data") || {};
 
                 return (
-                    <div className={"webiny-cms-section-footer"}>
-                        <div className="webiny-cms-section-footer__wrapper">
-                            <div className={"webiny-cms-section-footer__logo"}>
+                    <div className={"webiny-sb-section-footer"}>
+                        <div className="webiny-sb-section-footer__wrapper">
+                            <div className={"webiny-sb-section-footer__logo"}>
                                 <Link to="/">
                                     {logo && logo.src && <img src={logo.src} alt={name} />}
                                 </Link>
                                 <div
                                     className={
-                                        "webiny-cms-section-footer__copy webiny-cms-typography-description"
+                                        "webiny-sb-section-footer__copy webiny-sb-typography-description"
                                     }
                                 >
                                     {name} © {new Date().getFullYear()}
                                 </div>
                             </div>
                             {social && (
-                                <div className={"webiny-cms-section-footer__social"}>
+                                <div className={"webiny-sb-section-footer__social"}>
                                     {social.facebook && (
                                         <a href={social.facebook}>
                                             <FacebookIcon />

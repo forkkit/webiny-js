@@ -8,23 +8,23 @@ const pwd: string = (process.cwd(): any);
 
 const copyImage = (srcFilename, targetFilename = null) => {
     const src = `${pwd}/static/${srcFilename}`;
-    const dest = `${pwd}/../webiny-api-cms/src/install/plugins/importData/blocks/images/${targetFilename ||
+    const dest = `${pwd}/../webiny-api-site-builder/src/install/plugins/importData/blocks/images/${targetFilename ||
         srcFilename}`;
     fs.copySync(src, dest);
 };
 
 const writeIndexFile = content => {
-    const dest = `${pwd}/../webiny-api-cms/src/install/plugins/importData/blocks/index.js`;
+    const dest = `${pwd}/../webiny-api-site-builder/src/install/plugins/importData/blocks/index.js`;
 
     fs.writeFileSync(dest, content);
 };
 
 export default async () => {
-    fs.emptyDirSync(`${pwd}/../webiny-api-cms/src/install/plugins/importData/blocks`);
+    fs.emptyDirSync(`${pwd}/../webiny-api-site-builder/src/install/plugins/importData/blocks`);
     const { database } = await config();
 
     const blocks = await database.mongodb
-        .collection("CmsElement")
+        .collection("SiteBuilderElement")
         .find({ deleted: false, type: "block" })
         .toArray();
 
@@ -53,9 +53,9 @@ export default async () => {
         console.log(`${blue("> Copy preview:")} ${data.preview.src}`);
         const previewName = data.preview.src.match(/\/files\/(.*)/)[1];
         let targetName = previewName;
-        if (!targetName.startsWith("cms-element-")) {
+        if (!targetName.startsWith("sb-page-element-")) {
             console.log(blue("Modifying file name"), previewName);
-            targetName = `cms-element-${data.id}_${previewName}`;
+            targetName = `sb-page-element-${data.id}_${previewName}`;
             data.preview.name = targetName;
             data.preview.src = data.preview.src.replace(previewName, targetName);
         }

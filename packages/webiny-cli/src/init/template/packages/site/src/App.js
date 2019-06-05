@@ -1,11 +1,11 @@
 import { hot } from "react-hot-loader";
 import React, { cloneElement } from "react";
 import { registerPlugins, getPlugins } from "webiny-plugins";
-import { CmsProvider } from "webiny-app-cms/context";
+import { SiteBuilderProvider } from "webiny-app-site-builder/context";
 import { UiProvider } from "webiny-app/context/ui";
 import plugins from "./plugins";
 import theme from "theme";
-import { GenericNotFoundPage, GenericErrorPage } from "./cms";
+import { GenericNotFoundPage, GenericErrorPage } from "./pages";
 
 // Register all plugins
 registerPlugins(plugins);
@@ -24,11 +24,11 @@ const App = () => {
     return (
         /* UiProvider is a provider for UI state (dialogs, snackbars, dark theme, ...) */
         <UiProvider>
-            {/* CmsProvider gives access to `theme` object */}
-            <CmsProvider theme={theme} defaults={defaults}>
+            {/* SiteBuilderProvider gives access to `theme` object */}
+            <SiteBuilderProvider theme={theme} defaults={defaults}>
                 {/* Get all `route` plugins and render them. */}
                 {getPlugins("route").map((pl: Object) => cloneElement(pl.route, { key: pl.name }))}
-            </CmsProvider>
+            </SiteBuilderProvider>
         </UiProvider>
     );
 };

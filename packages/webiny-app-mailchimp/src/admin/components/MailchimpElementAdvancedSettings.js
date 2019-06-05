@@ -9,7 +9,7 @@ import { css } from "react-emotion";
 import { Grid, Cell } from "webiny-ui/Grid";
 import { Typography } from "webiny-ui/Typography";
 import { withSnackbar } from "webiny-admin/components";
-import { withCms } from "webiny-app-cms/context";
+import { withSiteBuilder } from "webiny-app-site-builder/context";
 import { AutoComplete } from "webiny-ui/AutoComplete";
 import { getPlugins } from "webiny-plugins";
 import { Form } from "webiny-form";
@@ -102,7 +102,7 @@ const MailchimpElementAdvancedSettings = ({ Bind, submitApiKeyForm, loading }: O
                                             >
                                                 {({ onChange, value: name }) => {
                                                     const options = getPlugins(
-                                                        "cms-element-mailchimp-component"
+                                                        "sb-page-element-mailchimp-component"
                                                     ).map(({ name, title }) => {
                                                         return {
                                                             name,
@@ -224,7 +224,7 @@ const MailchimpElementAdvancedSettings = ({ Bind, submitApiKeyForm, loading }: O
 };
 
 export default compose(
-    withCms(),
+    withSiteBuilder(),
     withSnackbar(),
     withState("loading", "setLoading", false),
     graphql(settingsGql.mutation, { name: "updateApiKey" }),

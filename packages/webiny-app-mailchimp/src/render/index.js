@@ -6,16 +6,16 @@ import MailchimpDefaultForm from "./components/MailchimpDefaultForm";
 
 export default ([
     {
-        name: "cms-render-element-mailchimp",
-        type: "cms-render-element",
-        element: "cms-element-mailchimp",
+        name: "sb-render-element-mailchimp",
+        type: "sb-render-element",
+        element: "mailchimp",
         render(props: *) {
             return <RenderMailchimpForm {...props} />;
         }
     },
     {
-        type: "cms-element-mailchimp-component",
-        name: "cms-element-mailchimp-component-default",
+        type: "sb-page-element-mailchimp-component",
+        name: "sb-page-element-mailchimp-component-default",
         title: "Default newsletter form",
         component: MailchimpDefaultForm
     }

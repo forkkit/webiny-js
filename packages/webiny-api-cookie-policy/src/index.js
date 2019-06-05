@@ -50,7 +50,7 @@ export default [
         security: {
             shield: {
                 SettingsMutation: {
-                    cookiePolicy: hasScope("cms:settings")
+                    cookiePolicy: hasScope("sb:settings")
                 }
             }
         }

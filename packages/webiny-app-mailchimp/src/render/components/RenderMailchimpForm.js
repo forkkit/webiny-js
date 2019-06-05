@@ -25,7 +25,7 @@ class RenderMailchimpForm extends React.Component<*, { processing: boolean }> {
         const { props } = this;
         const { element } = props;
         const selected = get(element, "data.settings.component") || "";
-        const component = getPlugins("cms-element-mailchimp-component").find(
+        const component = getPlugins("sb-page-element-mailchimp-component").find(
             cmp => cmp.name === selected
         );
 
@@ -33,7 +33,7 @@ class RenderMailchimpForm extends React.Component<*, { processing: boolean }> {
             const Component = component.component;
             const style = { width: "100%", ...get(props, "element.data.settings.style") };
             return (
-                <div style={style} className={"webiny-cms-element-mailchimp"}>
+                <div style={style} className={"webiny-sb-page-element-mailchimp"}>
                     <Mutation mutation={mutation}>
                         {update => (
                             <Form key={component.name}>

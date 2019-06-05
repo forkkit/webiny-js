@@ -3,7 +3,7 @@ import React, { cloneElement, Fragment } from "react";
 import { UiProvider } from "webiny-app/context/ui";
 import { registerPlugins, getPlugins } from "webiny-plugins";
 import { Theme as AdminTheme } from "webiny-admin";
-import { CmsProvider } from "webiny-app-cms/context";
+import { SiteBuilderProvider } from "webiny-app-site-builder/context";
 import { CircularProgress } from "webiny-ui/Progress";
 import { Security } from "webiny-app-security/components";
 import Login from "webiny-app-security/admin/views/Login";
@@ -24,7 +24,7 @@ const App = () => {
             {/* Security components handles user authentication. */}
             <Security>
                 {({ initialLoad, authenticated, notAuthenticated }) => (
-                    <CmsProvider theme={myTheme} isEditor>
+                    <SiteBuilderProvider theme={myTheme} isEditor>
                         {/* AdminTheme handles the Dark/Light theme switching and initialization. */}
                         <AdminTheme>
                             {/* Render a loader during initial load of user data */}
@@ -40,7 +40,7 @@ const App = () => {
                             {/* If user is not authenticated, render Login component. */}
                             {notAuthenticated(<Login />)}
                         </AdminTheme>
-                    </CmsProvider>
+                    </SiteBuilderProvider>
                 )}
             </Security>
         </UiProvider>

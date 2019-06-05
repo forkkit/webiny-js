@@ -1,4 +1,4 @@
-.webiny-cms-element-button{
+.webiny-sb-page-element-button{
   display: flex;
   align-items: center !important;
   justify-content: center;
@@ -20,9 +20,9 @@
   border: none;
   min-width: 100px;
   width: auto;
-  background-color: $webiny-cms-theme-background;
-  font-family: unquote($webiny-cms-theme-typography-primary-font-family);
-  color: $webiny-cms-theme-on-background;
+  background-color: $webiny-sb-theme-background;
+  font-family: unquote($webiny-sb-theme-typography-primary-font-family);
+  color: $webiny-sb-theme-on-background;
   >span{
     display: block;
     font-size: 1px;
@@ -36,28 +36,28 @@
     transform: translateY(1px);
   }
   &--primary{
-    background-color: $webiny-cms-theme-primary;
-    color: $webiny-cms-theme-on-primary;
+    background-color: $webiny-sb-theme-primary;
+    color: $webiny-sb-theme-on-primary;
   }
   &--secondary{
-    background-color: $webiny-cms-theme-secondary;
-    color: $webiny-cms-theme-on-secondary;
+    background-color: $webiny-sb-theme-secondary;
+    color: $webiny-sb-theme-on-secondary;
   }
   &--outline-primary{
-    border: 2px solid $webiny-cms-theme-primary;
-    color: $webiny-cms-theme-primary;
+    border: 2px solid $webiny-sb-theme-primary;
+    color: $webiny-sb-theme-primary;
     padding: 10px 16px !important;
     background-color: transparent;
   }
   &--outline-secondary{
-    border: 2px solid $webiny-cms-theme-secondary;
-    color: $webiny-cms-theme-secondary;
+    border: 2px solid $webiny-sb-theme-secondary;
+    color: $webiny-sb-theme-secondary;
     padding: 10px 16px !important;
     background-color: transparent;
   }
   &--simple{
     background-color: transparent;
-    color: $webiny-cms-theme-primary;
+    color: $webiny-sb-theme-primary;
     padding: 0 !important;
     min-width: 0;
     &:hover{

@@ -31,7 +31,11 @@ const DefaultMenu = ({ data }: Object) => {
                     );
                 }
 
-                return <li key={item.id + index}>{getLink(item)}</li>;
+                if (item.url) {
+                    return <li key={item.id + index}>{getLink(item)}</li>;
+                }
+
+                return null;
             })}
         </ul>
     );

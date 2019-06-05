@@ -22,10 +22,10 @@ To setup, you must register a set of plugins. For more information on
 plugins, please visit [Webiny documentation](https://docs.webiny.com/docs/developer-tutorials/plugins-crash-course).
 
 ```
-import cmsPlugins from "webiny-api-files"
+import siteBuilderPlugins from "webiny-api-files"
 import { registerPlugins } from "webiny-plugins";
 
-registerPlugins(...cmsPlugins);
+registerPlugins(...siteBuilderPlugins);
 ```
 
 Exposes necessary GraphQL fields that handle files.

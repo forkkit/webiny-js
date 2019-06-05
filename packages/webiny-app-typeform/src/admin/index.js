@@ -6,7 +6,7 @@ import { Input } from "webiny-ui/Input";
 import { Grid, Cell } from "webiny-ui/Grid";
 import { ReactComponent as CodeIcon } from "./round-text_format-24px.svg";
 import { ReactComponent as TypeformLogo } from "./typeform-logo.svg";
-import { ElementRoot } from "webiny-app-cms/render/components/ElementRoot";
+import { ElementRoot } from "webiny-app-site-builder/render/components/ElementRoot";
 import TypeFormEmbed from "./TypeFormEmbed";
 import render from "./../render";
 
@@ -22,11 +22,11 @@ const PreviewBox = styled("div")({
 export default [
     ...render,
     {
-        name: "cms-element-typeform",
-        type: "cms-element",
+        name: "sb-page-element-typeform",
+        type: "sb-page-element",
         toolbar: {
             title: "Typeform",
-            group: "cms-element-group-form",
+            group: "sb-page-element-group-form",
             preview() {
                 return (
                     <PreviewBox>
@@ -35,19 +35,19 @@ export default [
                 );
             }
         },
-        settings: ["cms-element-settings-delete", "", "cms-element-settings-height"],
-        target: ["cms-element-column", "cms-element-row", "cms-element-list-item"],
+        settings: ["sb-page-element-settings-delete", "", "sb-page-element-settings-height"],
+        target: ["sb-page-element-column", "sb-page-element-row", "sb-page-element-list-item"],
         onCreate: "open-settings",
         render({ element }: Object) {
             return (
-                <ElementRoot element={element} className={"webiny-cms-element-typeform"}>
+                <ElementRoot element={element} className={"webiny-sb-page-element-typeform"}>
                     <TypeFormEmbed elementId={element.id} />
                 </ElementRoot>
             );
         },
         create() {
             return {
-                type: "cms-element-typeform",
+                type: "sb-page-element-typeform",
                 elements: [],
                 data: {},
                 settings: {
@@ -59,9 +59,9 @@ export default [
         }
     },
     {
-        name: "cms-element-advanced-settings-typeform",
-        type: "cms-element-advanced-settings",
-        element: "cms-element-typeform",
+        name: "sb-page-element-advanced-settings-typeform",
+        type: "sb-page-element-advanced-settings",
+        element: "typeform",
         render({ Bind }: Object) {
             return (
                 <Tab icon={<CodeIcon />} label="Typeform">

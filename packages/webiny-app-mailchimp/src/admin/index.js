@@ -23,16 +23,16 @@ const PreviewBox = styled("div")({
     }
 });
 
-const roles = ["cms-settings"];
+const roles = ["sb-settings"];
 
 export default [
     ...render,
     {
-        name: "cms-element-mailchimp",
-        type: "cms-element",
+        name: "sb-page-element-mailchimp",
+        type: "sb-page-element",
         toolbar: {
             title: "Mailchimp",
-            group: "cms-element-group-form",
+            group: "sb-page-element-group-form",
             preview() {
                 return (
                     <PreviewBox>
@@ -41,15 +41,15 @@ export default [
                 );
             }
         },
-        settings: ["cms-element-settings-delete", "", "cms-element-settings-height"],
-        target: ["cms-element-column", "cms-element-row", "cms-element-list-item"],
+        settings: ["sb-page-element-settings-delete", "", "sb-page-element-settings-height"],
+        target: ["sb-page-element-column", "sb-page-element-row", "sb-page-element-list-item"],
         onCreate: "open-settings",
         render({ element }: Object) {
             return <MailchimpElement element={element} />;
         },
         create() {
             return {
-                type: "cms-element-mailchimp",
+                type: "sb-page-element-mailchimp",
                 elements: [],
                 data: {},
                 settings: {}
@@ -57,9 +57,9 @@ export default [
         }
     },
     {
-        name: "cms-element-advanced-settings-mailchimp",
-        type: "cms-element-advanced-settings",
-        element: "cms-element-mailchimp",
+        name: "sb-page-element-advanced-settings-mailchimp",
+        type: "sb-page-element-advanced-settings",
+        element: "mailchimp",
         render(props: Object) {
             return (
                 <Tab label="Mailchimp">

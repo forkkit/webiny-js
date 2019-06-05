@@ -1,8 +1,8 @@
 // @flow
 import * as React from "react";
 import { pure } from "recompose";
-import { withCms } from "webiny-app-cms/context";
-import { ElementRoot } from "webiny-app-cms/render/components/ElementRoot";
+import { withSiteBuilder } from "webiny-app-site-builder/context";
+import { ElementRoot } from "webiny-app-site-builder/render/components/ElementRoot";
 import { Form } from "webiny-form";
 import { get } from "lodash";
 import { getPlugins } from "webiny-plugins";
@@ -10,7 +10,7 @@ import { getPlugins } from "webiny-plugins";
 const MailchimpElement = pure((props: Object) => {
     const { element } = props;
     let selected = get(element, "data.settings.component", get(element, "settings.component"));
-    const component = getPlugins("cms-element-mailchimp-component").find(
+    const component = getPlugins("sb-page-element-mailchimp-component").find(
         cmp => cmp.name === selected
     );
 
@@ -39,11 +39,11 @@ const MailchimpElement = pure((props: Object) => {
         <ElementRoot
             key={component ? component.name : "no-component"}
             element={element}
-            className={"webiny-cms-element-mailchimp"}
+            className={"webiny-sb-page-element-mailchimp"}
         >
             {render}
         </ElementRoot>
     );
 });
 
-export default withCms()(MailchimpElement);
+export default withSiteBuilder()(MailchimpElement);

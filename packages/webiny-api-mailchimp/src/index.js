@@ -133,13 +133,13 @@ export default [
         security: {
             shield: {
                 SettingsQuery: {
-                    mailchimp: hasScope("cms:settings")
+                    mailchimp: hasScope("sb:settings")
                 },
                 SettingsMutation: {
-                    mailchimp: hasScope("cms:settings")
+                    mailchimp: hasScope("sb:settings")
                 },
                 MailchimpQuery: {
-                    listLists: hasScope("cms:editor")
+                    listLists: hasScope("sb:editor")
                 }
             }
         },

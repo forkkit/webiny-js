@@ -4,7 +4,7 @@
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-Adds TypeForm CMS element that enables you to embed 
+Adds TypeForm element to the page editor that enables you to embed 
 [TypeForm](https://www.typeform.com/) forms in your pages. 
   
 ## Install
@@ -29,7 +29,7 @@ import { registerPlugins } from "webiny-plugins";
 registerPlugins(typeformPlugins);
 ```
 
-Registers Typeform element in CMS editor, which will enable you to embed forms in your pages. 
+Registers Typeform element in the page editor, which will enable you to embed forms in your pages. 
 The element will be registered under the "Form" element category.
 
 #### Site

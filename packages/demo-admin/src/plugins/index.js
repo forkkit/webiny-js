@@ -2,7 +2,7 @@
 import { fileUploadPlugin, imagePlugin } from "webiny-app/plugins";
 import adminPlugins from "webiny-admin/plugins";
 import securityPlugins from "webiny-app-security/admin/plugins";
-import cmsPlugins from "webiny-app-cms/admin/plugins";
+import siteBuilderPlugins from "webiny-app-site-builder/admin/plugins";
 import cookiePolicyPlugins from "webiny-app-cookie-policy/admin";
 import googleTagManagerPlugins from "webiny-app-google-tag-manager/admin";
 import typeformPlugins from "webiny-app-typeform/admin";
@@ -14,14 +14,14 @@ const plugins = [
     imagePlugin,
     adminPlugins,
     securityPlugins,
-    cmsPlugins,
+    siteBuilderPlugins,
     cookiePolicyPlugins,
     googleTagManagerPlugins,
     typeformPlugins,
     mailchimpPlugins,
     {
-        name: "cms-editor-redux-middleware-bugsnag",
-        type: "cms-editor-redux-middleware",
+        name: "sb-editor-redux-middleware-bugsnag",
+        type: "sb-editor-redux-middleware",
         actions: ["Activate element"],
         middleware: createBugsnag()
     }

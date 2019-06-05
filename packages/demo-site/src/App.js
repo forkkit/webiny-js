@@ -2,11 +2,11 @@
 import { hot } from "react-hot-loader";
 import React from "react";
 import { registerPlugins, getPlugins } from "webiny-plugins";
-import { CmsProvider } from "webiny-app-cms/context";
+import { SiteBuilderProvider } from "webiny-app-site-builder/context";
 import { UiProvider } from "webiny-app/context/ui";
 import plugins from "./plugins";
 import myTheme from "demo-theme";
-import { GenericNotFoundPage, GenericErrorPage } from "./cms";
+import { GenericNotFoundPage, GenericErrorPage } from "./pages";
 
 registerPlugins(plugins);
 
@@ -23,11 +23,11 @@ const defaults = {
 const App = () => {
     return (
         <UiProvider>
-            <CmsProvider theme={myTheme} defaults={defaults}>
+            <SiteBuilderProvider theme={myTheme} defaults={defaults}>
                 {getPlugins("route").map((pl: Object) =>
                     React.cloneElement(pl.route, { key: pl.name, exact: true })
                 )}
-            </CmsProvider>
+            </SiteBuilderProvider>
         </UiProvider>
     );
 };

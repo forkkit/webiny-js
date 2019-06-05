@@ -10,7 +10,7 @@ const pwd: string = (process.cwd(): any);
 
 const copyImage = (srcFilename, targetFilename = null) => {
     const src = `${pwd}/static/${srcFilename}`;
-    const dest = `${pwd}/../webiny-api-cms/src/install/plugins/importData/pages/images/${targetFilename ||
+    const dest = `${pwd}/../webiny-api-site-builder/src/install/plugins/importData/pages/images/${targetFilename ||
         srcFilename}`;
 
     const blockImage = dest.replace("/pages/", "/blocks/");
@@ -21,7 +21,7 @@ const copyImage = (srcFilename, targetFilename = null) => {
 };
 
 const writeIndexFile = content => {
-    const dest = `${pwd}/../webiny-api-cms/src/install/plugins/importData/pages/index.js`;
+    const dest = `${pwd}/../webiny-api-site-builder/src/install/plugins/importData/pages/index.js`;
 
     fs.writeFileSync(dest, content);
 };
@@ -41,11 +41,11 @@ const omitAttributes = obj => {
 };
 
 export default async () => {
-    fs.emptyDirSync(`${pwd}/../webiny-api-cms/src/install/plugins/importData/pages`);
+    fs.emptyDirSync(`${pwd}/../webiny-api-site-builder/src/install/plugins/importData/pages`);
     const { database } = await config();
 
     let pages = await database.mongodb
-        .collection("CmsPage")
+        .collection("SiteBuilderPage")
         .find({ deleted: false, published: true })
         .toArray();
 
@@ -65,13 +65,13 @@ export default async () => {
 
     // Get categories
     const categories = (await database.mongodb
-        .collection("CmsCategory")
+        .collection("SiteBuilderCategory")
         .find()
         .toArray()).map(omitAttributes);
 
     // Get menus
     const menus = (await database.mongodb
-        .collection("CmsMenu")
+        .collection("SiteBuilderMenu")
         .find()
         .toArray()).map(omitAttributes);
 

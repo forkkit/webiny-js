@@ -10,7 +10,7 @@
     "url-search-params-polyfill": "^6.0.0",
     "webiny-admin": "^1",
     "webiny-app": "^1",
-    "webiny-app-cms": "^1",
+    "webiny-app-site-builder": "^1",
     "webiny-app-security": "^1",
     "webiny-form": "^1",
     "webiny-app-cookie-policy": "^1",

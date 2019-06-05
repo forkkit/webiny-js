@@ -33,17 +33,17 @@ registerPlugins(...mailchimpPlugins);
 Enables management of Mailchimp settings, which can be accessed via 
 Settings section in the main menu. You will paste your Mailchimp API 
 key here (this is required in order for the app to work properly). 
-Additionally, this will also register Mailchimp element in CMS editor, 
+Additionally, this will also register Mailchimp element in the page ditor, 
 which will enable you to insert newsletter signup forms in your pages. 
 The element will be registered under the "Form" element category.
 
 You can optionally register one or more newsletter signup 
-form plugins (type: `cms-element-mailchimp-component`).
+form plugins (type: `sb-page-element-mailchimp-component`).
 
 ```js
 {
-        type: "cms-element-mailchimp-component",
-        name: "cms-element-mailchimp-component-test1",
+        type: "sb-page-element-mailchimp-component",
+        name: "sb-page-element-mailchimp-component-test1",
         title: "Test newsletter form",
         component: MailchimpTestForm
 }

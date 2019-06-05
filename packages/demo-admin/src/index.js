@@ -11,7 +11,7 @@ ReactDOM.render(
     <ApolloProvider client={apolloClient}>
         <BrowserRouter basename={"/admin"}>
             <App />
-            <Route exact path="/" render={() => <Redirect to="/cms/pages" />} />
+            <Route exact path="/" render={() => <Redirect to="/site-builder/pages" />} />
         </BrowserRouter>
     </ApolloProvider>,
     document.getElementById("root")

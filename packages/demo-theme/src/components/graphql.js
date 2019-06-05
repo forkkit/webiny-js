@@ -2,9 +2,9 @@
 import gql from "graphql-tag";
 
 export const getHeaderData = gql`
-    query CmsGetHeader {
+    query SiteBuilderGetHeader {
         settings {
-            cms {
+            siteBuilder {
                 data {
                     name
                     logo {
@@ -17,9 +17,9 @@ export const getHeaderData = gql`
 `;
 
 export const getFooterData = gql`
-    query CmsGetSiteFooter {
+    query SiteBuilderGetSiteFooter {
         settings {
-            cms {
+            siteBuilder {
                 data {
                     social {
                         facebook

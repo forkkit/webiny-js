@@ -20,7 +20,7 @@ export default [
         security: {
             shield: {
                 SettingsMutation: {
-                    googleTagManager: hasScope("cms:settings")
+                    googleTagManager: hasScope("sb:settings")
                 }
             }
         }

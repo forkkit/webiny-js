@@ -31,7 +31,7 @@ module.exports = async () => {
         }
 
         const context = {
-            cms: { copyFiles: true, copyFilesTo: path.resolve(process.env.UPLOADS_FOLDER) }
+            siteBuilder: { copyFiles: true, copyFilesTo: path.resolve(process.env.UPLOADS_FOLDER) }
         };
 
         await install(context);
