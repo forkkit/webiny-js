@@ -76,20 +76,6 @@ const OptionsList = ({ form, multiple }: Object) => {
                 onChange: setOptionsValue
             }) => (
                 <>
-                    <EditFieldOptionDialog
-                        onClose={clearEditOption}
-                        open={editOption.data}
-                        options={optionsValue}
-                        option={editOption.data}
-                        optionIndex={editOption.index}
-                        onSubmit={data => {
-                            const newValue = [...optionsValue];
-                            newValue.splice(editOption.index, 1, data);
-                            setOptionsValue(newValue);
-                            clearEditOption();
-                        }}
-                    />
-
                     <div>Options</div>
                     <div>
                         <AddOptionInput
@@ -142,6 +128,20 @@ const OptionsList = ({ form, multiple }: Object) => {
                             </div>
                         )}
                     </div>
+
+                    <EditFieldOptionDialog
+                        onClose={clearEditOption}
+                        open={editOption.data}
+                        options={optionsValue}
+                        option={editOption.data}
+                        optionIndex={editOption.index}
+                        onSubmit={data => {
+                            const newValue = [...optionsValue];
+                            newValue.splice(editOption.index, 1, data);
+                            setOptionsValue(newValue);
+                            clearEditOption();
+                        }}
+                    />
                 </>
             )}
         </Bind>
