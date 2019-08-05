@@ -5,13 +5,53 @@ import { useI18N } from "webiny-app-i18n/components";
 import { css } from "emotion";
 import { camelCase, cloneDeep } from "lodash";
 import { OptionsListItem, AddOptionInput, EditFieldOptionDialog } from "./OptionsListComponents";
-const optionsUl = css({
-    "> li": {
-        display: "flex",
-        justifyContent: "space-between",
-        borderBottom: "1px solid gray"
-    }
+import { sortableContainer, sortableElement, sortableHandle } from "react-sortable-hoc";
+import { Icon } from "webiny-ui/Icon";
+import { ReactComponent as HandleIcon } from "webiny-app-forms/admin/icons/round-drag_indicator-24px.svg";
+
+const optionListItem = css({
+    zIndex: 10,
+    display: "flex",
+    justifyContent: "space-between",
+    borderBottom: "1px solid gray",
+    background: "white"
 });
+
+const DragHandle = sortableHandle(() => (
+    <Icon icon={<HandleIcon style={{ cursor: "pointer" }} />} />
+));
+
+const SortableContainer = sortableContainer(({ children }) => {
+    return <ul>{children}</ul>;
+});
+
+const SortableItem = sortableElement(
+    ({ setOptionsValue, setEditOption, value, options, Bind, multiple, index: optionIndex }) => (
+        <li className={optionListItem}>
+            <OptionsListItem
+                dragHandle={<DragHandle />}
+                key={value.value}
+                Bind={Bind}
+                multiple={multiple}
+                option={value}
+                deleteOption={() => {
+                    const newValue = [...options];
+                    newValue.splice(optionIndex, 1);
+                    setOptionsValue(newValue);
+                }}
+                editOption={() => setEditOption([cloneDeep(value), optionIndex])}
+                setOptionTranslations={label => {
+                    const newValue = [...options];
+                    newValue.splice(optionIndex, 1, {
+                        value: value.value,
+                        label
+                    });
+                    setOptionsValue(newValue);
+                }}
+            />
+        </li>
+    )
+);
 
 const OptionsList = ({ form, multiple }: Object) => {
     const { Bind } = form;
@@ -54,34 +94,32 @@ const OptionsList = ({ form, multiple }: Object) => {
                             }}
                         />
                     </div>
+
                     <div>
                         {Array.isArray(value) && value.length > 0 ? (
-                            <ul className={optionsUl}>
-                                {value.map((option, optionIndex) => (
-                                    <OptionsListItem
-                                        key={option.value}
+                            <SortableContainer
+                                useDragHandle
+                                transitionDuration={0}
+                                onSortEnd={({ oldIndex, newIndex }) => {
+                                    const newValue = [...value];
+                                    const [movedItem] = newValue.splice(oldIndex, 1);
+                                    newValue.splice(newIndex, 0, movedItem);
+                                    setOptionsValue(newValue);
+                                }}
+                            >
+                                {value.map((item, index) => (
+                                    <SortableItem
                                         Bind={Bind}
+                                        setEditOption={setEditOption}
                                         multiple={multiple}
-                                        option={option}
-                                        deleteOption={() => {
-                                            const newValue = [...value];
-                                            newValue.splice(optionIndex, 1);
-                                            setOptionsValue(newValue);
-                                        }}
-                                        editOption={() =>
-                                            setEditOption([cloneDeep(option), optionIndex])
-                                        }
-                                        setOptionTranslations={label => {
-                                            const newValue = [...value];
-                                            newValue.splice(optionIndex, 1, {
-                                                value: option.value,
-                                                label
-                                            });
-                                            setOptionsValue(newValue);
-                                        }}
+                                        setOptionsValue={setOptionsValue}
+                                        key={`item-${index}`}
+                                        index={index}
+                                        value={item}
+                                        options={value}
                                     />
                                 ))}
-                            </ul>
+                            </SortableContainer>
                         ) : (
                             <div style={{ padding: 40, textAlign: "center" }}>
                                 No options added.

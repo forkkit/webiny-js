@@ -5,11 +5,10 @@ import { I18NValue } from "webiny-app-i18n/components";
 import { I18NInput } from "webiny-app-i18n/admin/components";
 import { css } from "emotion";
 import { IconButton } from "webiny-ui/Button";
-import { Icon } from "webiny-ui/Icon";
+
 import { Switch } from "webiny-ui/Switch";
 import { ReactComponent as EditIcon } from "webiny-app-forms/admin/icons/edit.svg";
 import { ReactComponent as DeleteIcon } from "webiny-app-forms/admin/icons/delete.svg";
-import { ReactComponent as HandleIcon } from "webiny-app-forms/admin/icons/round-drag_indicator-24px.svg";
 import { ReactComponent as TranslateIcon } from "webiny-app-forms/admin/icons/round-translate-24px.svg";
 
 const optionsListItemLeft = css({
@@ -70,13 +69,19 @@ const DefaultValueSwitch = ({
 };
 
 export default function OptionsListItem(props: *) {
-    const { option, multiple, Bind, deleteOption, editOption, setOptionTranslations } = props;
+    const {
+        option,
+        multiple,
+        dragHandle,
+        Bind,
+        deleteOption,
+        editOption,
+        setOptionTranslations
+    } = props;
     return (
-        <li>
+        <>
             <div className={optionsListItemLeft}>
-                <span>
-                    <Icon icon={<HandleIcon />} />
-                </span>
+                <span>{dragHandle}</span>
                 <span>
                     <div>
                         <I18NValue value={option.label} />
@@ -105,6 +110,6 @@ export default function OptionsListItem(props: *) {
                     )}
                 </Bind>
             </div>
-        </li>
+        </>
     );
 }
