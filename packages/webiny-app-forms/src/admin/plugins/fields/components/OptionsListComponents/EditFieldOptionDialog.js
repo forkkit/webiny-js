@@ -29,9 +29,10 @@ const EditFieldOptionDialog = (props: {
     data: [Object, number],
     open: boolean,
     onClose: Function,
-    onSubmit: Function
+    onSubmit: Function,
+    options: Array<Object>
 }) => {
-    const { onClose, open, onSubmit, data } = props;
+    const { onClose, options, open, onSubmit, data } = props;
 
     return (
         <Dialog open={open} onClose={onClose} className={narrowDialog}>
@@ -63,7 +64,29 @@ const EditFieldOptionDialog = (props: {
                                             </Bind>
                                         </Cell>
                                         <Cell span={12}>
-                                            <Bind name={"value"}>
+                                            <Bind
+                                                name={"value"}
+                                                validators={[
+                                                    "required",
+                                                    value => {
+                                                        if (!Array.isArray(options)) {
+                                                            return true;
+                                                        }
+
+                                                        for (let i = 0; i < options.length; i++) {
+                                                            let current = options[i];
+                                                            if (
+                                                                current.value === value &&
+                                                                i !== data[1]
+                                                            ) {
+                                                                throw new Error(
+                                                                    `Option with value "${value}" already exists.`
+                                                                );
+                                                            }
+                                                        }
+                                                    }
+                                                ]}
+                                            >
                                                 <Input label={t`Value`} />
                                             </Bind>
                                         </Cell>

@@ -13,12 +13,6 @@ const optionsUl = css({
     }
 });
 
-/*
-TODO
-3. drag
-4. key collision
-*/
-
 const OptionsList = ({ form, multiple }: Object) => {
     const { Bind } = form;
 
@@ -32,6 +26,7 @@ const OptionsList = ({ form, multiple }: Object) => {
                     <EditFieldOptionDialog
                         onClose={() => setEditOption(null)}
                         open={editOption !== null}
+                        options={value}
                         data={editOption}
                         onSubmit={data => {
                             const newValue = [...value];
@@ -45,6 +40,7 @@ const OptionsList = ({ form, multiple }: Object) => {
                     <div>Options</div>
                     <div>
                         <AddOptionInput
+                            options={value}
                             validation={validation}
                             onAdd={label => {
                                 const newValue = Array.isArray(value) ? [...value] : [];
