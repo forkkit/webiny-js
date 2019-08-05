@@ -20,8 +20,6 @@ export default (value: any, params: Array<string>) => {
     if (!value) return;
     value = value + "";
 
-
-
     if (regex.base.test(value)) {
         if (!params.includes("noIp")) {
             return;
@@ -32,9 +30,7 @@ export default (value: any, params: Array<string>) => {
         }
     }
 
-    console.log(params)
     if (params.includes("allowRelative")) {
-        console.log('ideee')
         if (regex.relative.test(value)) {
             return;
         }
