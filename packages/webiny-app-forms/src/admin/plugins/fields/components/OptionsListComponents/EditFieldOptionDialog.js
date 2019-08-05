@@ -26,17 +26,18 @@ const narrowDialog = css({
 });
 
 const EditFieldOptionDialog = (props: {
-    data: [Object, number],
+    option: Object,
+    optionIndex: number,
     open: boolean,
     onClose: Function,
     onSubmit: Function,
     options: Array<Object>
 }) => {
-    const { onClose, options, open, onSubmit, data } = props;
+    const { onClose, options, open, onSubmit, option, optionIndex } = props;
 
     return (
         <Dialog open={open} onClose={onClose} className={narrowDialog}>
-            {data !== null && (
+            {option !== null && (
                 <Hotkeys
                     zIndex={115}
                     keys={{
@@ -47,7 +48,7 @@ const EditFieldOptionDialog = (props: {
                         }
                     }}
                 >
-                    <Form data={data[0]} onSubmit={onSubmit}>
+                    <Form data={option} onSubmit={onSubmit}>
                         {({ Bind, submit }) => (
                             <>
                                 <DialogHeader>
@@ -77,7 +78,7 @@ const EditFieldOptionDialog = (props: {
                                                             let current = options[i];
                                                             if (
                                                                 current.value === value &&
-                                                                i !== data[1]
+                                                                i !== optionIndex
                                                             ) {
                                                                 throw new Error(
                                                                     `Option with value "${value}" already exists.`

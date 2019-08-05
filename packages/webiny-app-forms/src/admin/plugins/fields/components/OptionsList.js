@@ -26,24 +26,24 @@ const SortableContainer = sortableContainer(({ children }) => {
 });
 
 const SortableItem = sortableElement(
-    ({ setOptionsValue, setEditOption, value, options, Bind, multiple, index: optionIndex }) => (
+    ({ setOptionsValue, setEditOption, option, options, Bind, multiple, optionIndex }) => (
         <li className={optionListItem}>
             <OptionsListItem
                 dragHandle={<DragHandle />}
-                key={value.value}
+                key={option.value}
                 Bind={Bind}
                 multiple={multiple}
-                option={value}
+                option={option}
                 deleteOption={() => {
                     const newValue = [...options];
                     newValue.splice(optionIndex, 1);
                     setOptionsValue(newValue);
                 }}
-                editOption={() => setEditOption([cloneDeep(value), optionIndex])}
+                editOption={() => setEditOption({ index: optionIndex, data: cloneDeep(option) })}
                 setOptionTranslations={label => {
                     const newValue = [...options];
                     newValue.splice(optionIndex, 1, {
-                        value: value.value,
+                        value: option.value,
                         label
                     });
                     setOptionsValue(newValue);
@@ -56,34 +56,49 @@ const SortableItem = sortableElement(
 const OptionsList = ({ form, multiple }: Object) => {
     const { Bind } = form;
 
-    const [editOption, setEditOption] = useState(null);
     const { getDefaultLocale } = useI18N();
+
+    const [editOption, setEditOption] = useState({
+        data: null,
+        index: null
+    });
+    const clearEditOption = () =>
+        setEditOption({
+            data: null,
+            index: null
+        });
 
     return (
         <Bind name={"options"} validators={["minLength:2", "required"]}>
-            {({ validation, value, onChange: setOptionsValue }) => (
+            {({
+                validation: optionsValidation,
+                value: optionsValue,
+                onChange: setOptionsValue
+            }) => (
                 <>
                     <EditFieldOptionDialog
-                        onClose={() => setEditOption(null)}
-                        open={editOption !== null}
-                        options={value}
-                        data={editOption}
+                        onClose={clearEditOption}
+                        open={editOption.data}
+                        options={optionsValue}
+                        option={editOption.data}
+                        optionIndex={editOption.index}
                         onSubmit={data => {
-                            const newValue = [...value];
-                            const [, optionIndex] = editOption;
-                            newValue.splice(optionIndex, 1, data);
+                            const newValue = [...optionsValue];
+                            newValue.splice(editOption.index, 1, data);
                             setOptionsValue(newValue);
-                            setEditOption(null);
+                            clearEditOption();
                         }}
                     />
 
                     <div>Options</div>
                     <div>
                         <AddOptionInput
-                            options={value}
-                            validation={validation}
+                            options={optionsValue}
+                            validation={optionsValidation}
                             onAdd={label => {
-                                const newValue = Array.isArray(value) ? [...value] : [];
+                                const newValue = Array.isArray(optionsValue)
+                                    ? [...optionsValue]
+                                    : [];
                                 newValue.push({
                                     value: camelCase(label),
                                     label: {
@@ -96,27 +111,28 @@ const OptionsList = ({ form, multiple }: Object) => {
                     </div>
 
                     <div>
-                        {Array.isArray(value) && value.length > 0 ? (
+                        {Array.isArray(optionsValue) && optionsValue.length > 0 ? (
                             <SortableContainer
                                 useDragHandle
                                 transitionDuration={0}
                                 onSortEnd={({ oldIndex, newIndex }) => {
-                                    const newValue = [...value];
+                                    const newValue = [...optionsValue];
                                     const [movedItem] = newValue.splice(oldIndex, 1);
                                     newValue.splice(newIndex, 0, movedItem);
                                     setOptionsValue(newValue);
                                 }}
                             >
-                                {value.map((item, index) => (
+                                {optionsValue.map((item, index) => (
                                     <SortableItem
-                                        Bind={Bind}
-                                        setEditOption={setEditOption}
-                                        multiple={multiple}
-                                        setOptionsValue={setOptionsValue}
                                         key={`item-${index}`}
+                                        Bind={Bind}
+                                        multiple={multiple}
+                                        setEditOption={setEditOption}
+                                        setOptionsValue={setOptionsValue}
+                                        option={item}
+                                        optionsValue={optionsValue}
+                                        optionIndex={index}
                                         index={index}
-                                        value={item}
-                                        options={value}
                                     />
                                 ))}
                             </SortableContainer>
