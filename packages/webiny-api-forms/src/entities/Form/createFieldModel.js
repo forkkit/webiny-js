@@ -2,7 +2,7 @@ import { Model } from "webiny-model";
 import { I18NCharAttribute } from "webiny-api-i18n/attributes";
 
 const createFieldOptionsModel = context =>
-    class SettingsModel extends Model {
+    class FieldOptionsModel extends Model {
         constructor(props) {
             super(props);
             this.attr("label").custom(I18NCharAttribute, context);

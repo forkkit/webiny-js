@@ -5,7 +5,7 @@ import styled from "react-emotion";
 import { css } from "emotion";
 import { Icon } from "webiny-ui/Icon";
 import { Accordion, AccordionItem } from "webiny-ui/Accordion";
-import { ReactComponent as HandleIcon } from "./icons/round-drag_indicator-24px.svg";
+import { ReactComponent as HandleIcon } from "webiny-app-forms/admin/icons/round-drag_indicator-24px.svg";
 import Draggable from "./Draggable";
 
 const FieldContainer = styled("div")({

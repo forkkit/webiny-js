@@ -5,7 +5,7 @@ import { Center, Vertical, Horizontal } from "../../DropZone";
 import Draggable from "../../Draggable";
 import EditFieldDialog from "./EditFieldDialog";
 import Field from "./Field";
-import { ReactComponent as HandleIcon } from "../../icons/round-drag_indicator-24px.svg";
+import { ReactComponent as HandleIcon } from "webiny-app-forms/admin/icons/round-drag_indicator-24px.svg";
 import { rowHandle, EditContainer, fieldHandle, fieldContainer, Row, RowContainer } from "./Styled";
 import { useFormEditor } from "webiny-app-forms/admin/components/FormEditor/Context";
 import type { FieldLayoutPositionType } from "webiny-app-forms/types";

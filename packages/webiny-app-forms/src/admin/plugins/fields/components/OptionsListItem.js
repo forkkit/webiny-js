@@ -9,6 +9,14 @@ import { ButtonPrimary, ButtonSecondary } from "webiny-ui/Button";
 import { debounce, camelCase, trim } from "lodash";
 import { I18NInput } from "webiny-app-i18n/admin/components";
 import { useI18N } from "webiny-app-i18n/components";
+import { Form } from "webiny-form";
+import { Hotkeys } from "react-hotkeyz";
+import { IconButton } from "webiny-ui/Button";
+import { Icon } from "webiny-ui/Icon";
+import { Switch } from "webiny-ui/Switch";
+import { ReactComponent as EditIcon } from "webiny-app-forms/admin/icons/edit.svg";
+import { ReactComponent as DeleteIcon } from "webiny-app-forms/admin/icons/delete.svg";
+import { ReactComponent as HandleIcon } from "webiny-app-forms/admin/icons/round-drag_indicator-24px.svg";
 
 const controlButtons = css({
     display: "flex",
@@ -23,12 +31,20 @@ const textStyling = css({
     color: "var(--mdc-theme-text-secondary-on-background)"
 });
 
+const optionsUl = css({
+    "> li": {
+        display: "flex",
+        justifyContent: "space-between",
+        borderBottom: "1px solid gray"
+    }
+});
+
 const SetOptionAsDefaultValue = ({
-    multiple,
-    option,
-    value: currentDefaultValue,
-    onChange: setDefaultValue
-}: Object) => {
+                                     multiple,
+                                     option,
+                                     value: currentDefaultValue,
+                                     onChange: setDefaultValue
+                                 }: Object) => {
     if (multiple) {
         if (Array.isArray(currentDefaultValue) && currentDefaultValue.includes(option.value)) {
             return (
@@ -79,7 +95,7 @@ const SetOptionAsDefaultValue = ({
     );
 };
 
-const OptionsSelectionDynamicFieldset = ({ form, multiple }: Object) => {
+const OptionsList = ({ form, multiple }: Object) => {
     const { Bind, setValue } = form;
     const { getValue } = useI18N();
     // $FlowFixMe
@@ -89,6 +105,66 @@ const OptionsSelectionDynamicFieldset = ({ form, multiple }: Object) => {
             200
         );
     }, []);
+
+    return (
+        <>
+            <div>Options</div>
+            <div>
+                <Form>
+                    {({ Bind }) => (
+                        <Bind name={"item"}>
+                            {({ value, onChange, ...rest }) => (
+                                <Hotkeys
+                                    zIndex={110}
+                                    keys={{
+                                        enter: () => {
+                                            if (value) {
+                                                console.log("item", value);
+                                                onChange("");
+                                            }
+                                        }
+                                    }}
+                                >
+                                    <Input
+                                        {...rest}
+                                        value={value}
+                                        onChange={onChange}
+                                        label={"Add item"}
+                                    />
+                                </Hotkeys>
+                            )}
+                        </Bind>
+                    )}
+                </Form>
+            </div>
+
+            <Bind name={"options"} validators={["minLength:2", "required"]}>
+                {({ value, onChange, ...other }) => {
+                    return (
+                        <ul className={optionsUl}>
+                            <li>
+                                <div>
+                                    <span>
+                                        <Icon icon={<HandleIcon />} />
+                                    </span>
+                                    <span>
+                                        <div>Option 1</div>
+                                        <div>option-1</div>
+                                    </span>
+                                </div>
+                                <div>
+                                    <IconButton icon={<EditIcon />} />
+                                    <IconButton icon={<DeleteIcon />} />
+                                    <span>|</span>
+                                    <Switch />
+                                </div>
+                            </li>
+                        </ul>
+                    );
+                }}
+            </Bind>
+        </>
+    );
 
     return (
         <Bind name={"options"} validators={["minLength:2", "required"]}>
@@ -162,4 +238,4 @@ const OptionsSelectionDynamicFieldset = ({ form, multiple }: Object) => {
     );
 };
 
-export default OptionsSelectionDynamicFieldset;
+export default OptionsList;
