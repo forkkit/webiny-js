@@ -1,11 +1,12 @@
 import "cross-fetch/polyfill";
-import "url-search-params-polyfill";
+import "core-js/stable";
+import "regenerator-runtime/runtime";
 import React from "react";
 import { ApolloProvider } from "react-apollo";
 import { StaticRouter } from "react-router-dom";
 import ReactDOMServer from "react-dom/server";
 import Helmet from "react-helmet";
-import { getDataFromTree } from "react-apollo";
+import { getDataFromTree } from "@apollo/react-ssr";
 import ApolloClient from "apollo-client";
 import { ApolloLink } from "apollo-link";
 import { InMemoryCache } from "apollo-cache-inmemory";
@@ -14,15 +15,13 @@ import { createOmitTypenameLink } from "@webiny/app/graphql";
 import injectContent from "./injectContent";
 import App from "../src/App";
 
-const createClient = ({ headers }) => {
+const createClient = () => {
     return new ApolloClient({
         ssrMode: true,
         link: ApolloLink.from([
             createOmitTypenameLink(),
             createHttpLink({
-                uri: process.env.REACT_APP_FUNCTIONS_HOST,
-                credentials: "same-origin",
-                headers
+                uri: process.env.REACT_APP_API_ENDPOINT
             })
         ]),
         cache: new InMemoryCache({
@@ -33,11 +32,12 @@ const createClient = ({ headers }) => {
 };
 
 export const handler = async event => {
-    const apolloClient = createClient(event);
+    const apolloClient = createClient();
+    const context = {};
 
     const app = (
         <ApolloProvider client={apolloClient}>
-            <StaticRouter location={event.path} context={{}}>
+            <StaticRouter basename={process.env.PUBLIC_URL} location={event.requestContext.path} context={context}>
                 <App />
             </StaticRouter>
         </ApolloProvider>

@@ -11,5 +11,7 @@ module.exports = {
     setupTestFrameworkScriptFile: "jest-extended",
     rootDir: process.cwd(),
     testRegex: `packages/(${packages.join("|")})/.*test.js$`,
-    testEnvironment: "node"
+    // testEnvironment: "node",
+    modulePathIgnorePatterns: ["dist", ".verdaccio", "build"],
+    preset: "@shelf/jest-mongodb"
 };

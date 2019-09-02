@@ -1,6 +1,5 @@
 const path = require("path");
 const webpack = require("webpack");
-const nodeExternals = require("webpack-node-externals");
 
 module.exports = {
     entry: path.resolve("ssr", "handler.js"),
@@ -18,20 +17,20 @@ module.exports = {
         modules: [
             path.resolve("src"),
             path.resolve("node_modules"),
-            path.resolve("..", "..", "node_modules")
+            path.resolve("..", "..", "..", "node_modules")
         ]
     },
     target: "node",
     node: {
         __dirname: false
     },
-    externals: [nodeExternals()],
     plugins: [
         new webpack.DefinePlugin({
             "process.env.REACT_APP_API_ENDPOINT": JSON.stringify(
                 process.env.REACT_APP_API_ENDPOINT
             ),
-            "process.env.REACT_APP_ENV": JSON.stringify(process.env.REACT_APP_ENV || "browser")
+            "process.env.REACT_APP_ENV": JSON.stringify(process.env.REACT_APP_ENV || "browser"),
+            "process.env.PUBLIC_URL": JSON.stringify(process.env.PUBLIC_URL)
         })
     ],
     module: {
@@ -46,7 +45,7 @@ module.exports = {
                 loader: "file-loader",
                 options: {
                     name: "static/media/[name].[hash:8].[ext]",
-                    publicPath: "/",
+                    publicPath: process.env.PUBLIC_URL,
                     emitFile: false
                 }
             }
