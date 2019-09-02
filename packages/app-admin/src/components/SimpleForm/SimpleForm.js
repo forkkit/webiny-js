@@ -60,7 +60,7 @@ const SimpleFormHeader = (props: {
             <Cell span={6} className={title}>
                 <React.Fragment>
                     {props.icon && <Icon className={icon} icon={props.icon} />}
-                    <Typography use="headline5">{props.title}</Typography>
+                    <Typography use="headline6">{props.title}</Typography>
                 </React.Fragment>
             </Cell>
             <Cell span={6} className={actions}>
