@@ -72,3 +72,16 @@ export function withKeyHandler() {
         };
     };
 }
+
+export function useKeyHandler() {
+    const [id] = React.useState(shortid.generate());
+
+    return {
+        addKeyHandler(key, handler) {
+            addKeyHandler(id, key, handler);
+        },
+        removeKeyHandler(key) {
+            removeKeyHandler(id, key);
+        }
+    }
+}
