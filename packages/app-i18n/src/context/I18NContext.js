@@ -24,23 +24,20 @@ export const getI18NInformation = gql`
 `;
 
 const I18NContext = React.createContext();
+const defState = { initializing: false, currentLocale: null, locales: [] };
 
 const I18NProvider = ({ children }: Object) => {
-    const [state, setState] = useState({ initializing: false, currentLocale: null, locales: [] });
     const { loading, data } = useQuery(getI18NInformation);
 
     const { currentLocale, locales } = get(data, "i18n.getI18NInformation", {});
 
-    const value = useMemo(() => {
-        return {
-            state: {
-                ...state,
-                currentLocale,
-                locales
-            },
-            setState
-        };
-    });
+    const value = {
+        state: {
+            ...defState,
+            currentLocale,
+            locales
+        }
+    };
 
     if (loading) {
         return null;
