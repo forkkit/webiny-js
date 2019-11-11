@@ -1,0 +1,39 @@
+{
+  "name": "@webiny/commodo",
+  "version": "2.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/webiny/webiny-js.git"
+  },
+  "description": "A set of frequently used Commodo higher order functions.",
+  "contributors": [
+    "Pavel Denisjuk <pavel@webiny.com>",
+    "Sven Al Hamad <sven@webiny.com>",
+    "Adrian Smijulj <adrian@webiny.com>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@commodo/fields": "^0.2.8",
+    "@commodo/fields-storage": "^0.3.2",
+    "@commodo/fields-storage-mongodb": "^0.2.15",
+    "@commodo/fields-storage-ref": "^0.3.3",
+    "@commodo/fields-storage-soft-delete": "^0.2.2",
+    "@commodo/hooks": "^0.1.1",
+    "@commodo/name": "^1.0.2",
+    "commodo-fields-date": "^1.0.2",
+    "commodo-fields-object": "^1.0.2",
+    "commodo-fields-storage-crud-logs": "^1.0.1",
+    "repropose": "^1.0.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "babel src -d dist --source-maps --copy-files",
+    "flow-copy-source": "flow-copy-source src dist",
+    "postbuild": "yarn flow-copy-source && cp package.json LICENSE README.md dist/",
+    "prepublishOnly": "yarn build"
+  },
+  "gitHead": "71cab7d5607b2e32a63034e324a663770507b32b"
+}

@@ -1,13 +1,22 @@
 {
-  "changelog": {
-    "repo": "webiny/webiny-js",
-    "labels": {
-      "tag: new feature": ":rocket: New Feature",
-      "tag: breaking change": ":boom: Breaking Change",
-      "tag: bug fix": ":bug: Bug Fix",
-      "tag: enhancement": ":nail_care: Enhancement",
-      "tag: documentation": ":memo: Documentation",
-      "tag: internal": ":house: Internal"
+  "packages": [
+    "packages/*",
+    "components/*"
+  ],
+  "version": "independent",
+  "command": {
+    "version": {
+      "preid": "next",
+      "ignoreChanges": ["scripts/**", ",**/__fixtures__/**", "**/__tests__/**", "**/*.md", "*/lerna.json", "examples/**"],
+      "allowBranch": ["master"],
+      "conventionalCommits": true,
+      "createRelease": "github",
+      "commitHooks": false,
+      "message": "chore(release): New release :tada: :rocket:"
+    },
+    "publish": {
+      "conventionalCommits": true,
+      "contents": "dist"
     }
   }
 }

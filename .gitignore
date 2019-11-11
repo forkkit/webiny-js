@@ -1,8 +1,10 @@
 .idea
 .webpack
+.webiny
 .serverless
-.env
+.env*
 .npmrc
+htpasswd
 lerna-debug.log
 npm-debug.log
 node_modules
@@ -12,12 +14,6 @@ yarn-error.log
 dist/
 lib/
 build/
-static/
 .files/
-independent/webiny-cli/lib/
-packages/webiny-ui/.cache/
-packages/demo-api/static/
 .changelog
 .verdaccio
-static
-__static

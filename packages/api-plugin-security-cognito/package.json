@@ -1,0 +1,40 @@
+{
+  "name": "@webiny/api-plugin-security-cognito",
+  "version": "2.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/webiny/webiny-js.git"
+  },
+  "description": "Security authentication plugin for AWS Cognito",
+  "contributors": [
+    "Pavel Denisjuk <pavel@webiny.com>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server-lambda": "^2.9.6",
+    "jsonwebtoken": "^8.5.1",
+    "jwk-to-pem": "^2.0.1",
+    "request-promise": "^4.2.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "babel src -d dist --source-maps --copy-files",
+    "postbuild": "cp package.json LICENSE README.md dist/",
+    "prepublishOnly": "yarn build"
+  },
+  "adio": {
+    "ignore": {
+      "src": [
+        "aws-sdk"
+      ]
+    }
+  },
+  "gitHead": "71cab7d5607b2e32a63034e324a663770507b32b"
+}

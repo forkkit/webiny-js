@@ -1,0 +1,20 @@
+{
+  "name": "@webiny/serverless-function",
+  "version": "2.0.0",
+  "main": "serverless.js",
+  "license": "MIT",
+  "dependencies": {
+    "@serverless/core": "^1.1.1",
+    "@serverless/function": "^3.0.0",
+    "execa": "^2.0.3"
+  },
+  "scripts": {
+    "build": "rm -rf dist && mkdir dist && cp serverless.js dist/",
+    "postbuild": "cp package.json README.md LICENSE dist/",
+    "prepublishOnly": "yarn build"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "71cab7d5607b2e32a63034e324a663770507b32b"
+}
